@@ -2,7 +2,7 @@
 
 * {
     font-family: "MesloLGS Nerd Font Mono Bold";
-    font-size: 15px;
+    font-size: 16px;
     min-height: 0;
     font-weight: bold;
 }
@@ -13,8 +13,7 @@ window#waybar {
     color: @overlay0;
     transition-property: background-color;
     transition-duration: 0.1s;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    border-bottom: 1px solid @overlay1;
 }
 
 #window {
@@ -35,47 +34,20 @@ button:hover {
     border-top: 2px solid @mauve;
 }
 
-#workspaces {
-    background: rgba(23, 23, 23, 0.0);
-    color: #888789;
-    box-shadow: none;
-    text-shadow: none;
-    border-radius: 9px;
-    transition: 0.2s ease;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 1px;
-}
-
 #workspaces button {
-    background: rgba(23, 23, 23, 0.0);
-    color: #A1BDCE;
-    box-shadow: none;
-    text-shadow: none;
-    border-radius: 9px;
-    transition: 0.2s ease;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding: 0 4px;
 }
 
-/*#workspaces button.focused {*/
-/*    background-color: rgba(0, 0, 0, 0.3);*/
-/*    color: @rosewater;*/
-/*    border-top: 2px solid @rosewater;*/
-/*}*/
+#workspaces button.focused {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: @rosewater;
+    border-top: 2px solid @rosewater;
+}
 
 #workspaces button.active {
-    background: rgba(23, 23, 23, 0.0);
-    transition: all 0.3s ease;
-    padding-left: 4px;
-    padding-right: 4px;
-}
-
-#workspaces button:hover {
-    background: none;
-    color: #72D792;
-    animation: ws_hover 20s ease-in-out 1;
-    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: @mauve;
+    border-top: 2px solid @mauve;
 }
 
 #workspaces button.urgent {
@@ -148,15 +120,13 @@ button:hover {
 }
 
 #custom-ocvpn {
-    color: gray;
+    color: @lavender;
     border-radius: 15px;
     padding-left: 6px;
     padding-right: 6px;
 }
 
-#custom-ocvpn.active {
-    color: @lavender
-}
+#custom-ocvpn.active {}
 #custom-ocvpn.inactive {
     color: gray;
 }

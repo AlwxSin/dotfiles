@@ -1,0 +1,12 @@
+.venv/
+venv/
+node_modules/
+typings/
+.idea/
+*.local*
+*local.sh
+alwx.local/*
+*.ipynb*
+.envrc
+.python-version
+go.work

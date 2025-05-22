@@ -1,5 +1,6 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.o.cursorline = true
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 4

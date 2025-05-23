@@ -3,6 +3,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export GOPATH=$(go env GOPATH)
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"

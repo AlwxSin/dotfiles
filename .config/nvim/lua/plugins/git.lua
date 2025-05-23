@@ -35,6 +35,12 @@ return {
             end, { desc = "git [r]eset hunk" })
 
             -- normal mode
+            vim.keymap.set("n", "<leader>hn", function()
+                gitsigns.nav_hunk("next")
+            end, { desc = "git [n]ext hunk" })
+            vim.keymap.set("n", "<leader>hp", function()
+                gitsigns.nav_hunk("prev")
+            end, { desc = "git [p]rev hunk" })
             vim.keymap.set("n", "<leader>hs", gitsigns.stage_hunk, { desc = "git [s]tage hunk" })
             vim.keymap.set("n", "<leader>hr", gitsigns.reset_hunk, { desc = "git reset hunk" })
             vim.keymap.set("n", "<leader>hS", gitsigns.stage_buffer, { desc = "git [S]tage buffer" })

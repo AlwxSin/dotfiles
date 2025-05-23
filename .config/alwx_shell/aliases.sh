@@ -11,4 +11,4 @@ alias lzg='lazygit'
 alias k8s='kubectl'
 alias kctx='kubectl config use-context'
 
-alias golangci-lint='$GOPATH/bin/golangci-lint --exclude-files=.local'
+# alias golangci-lint='$GOPATH/bin/golangci-lint --exclude-files=.local'

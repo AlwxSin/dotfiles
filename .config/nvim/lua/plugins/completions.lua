@@ -23,8 +23,10 @@ return {
             },
         },
         config = function()
-            local cmp, lspkind = require("cmp"), require("lspkind")
+            local cmp, lspkind, luasnip = require("cmp"), require("lspkind"), require("luasnip")
             require("luasnip.loaders.from_vscode").lazy_load()
+
+            luasnip.add_snippets("go", require("snippets.go"))
 
             local kind_formatter = lspkind.cmp_format({
                 mode = "symbol_text",

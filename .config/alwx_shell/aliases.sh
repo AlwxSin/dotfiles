@@ -5,8 +5,8 @@ alias la='exa -la'
 
 alias h='hstr'
 
-alias lzd='lazydocker'
-alias lzg='lazygit'
+alias ld='lazydocker'
+alias lg='lazygit'
 
 alias k8s='kubectl'
 alias kctx='kubectl config use-context'

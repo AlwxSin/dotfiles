@@ -30,3 +30,11 @@ Command mode | :
 Copy Mode | [
 Big clock | t
 List shortcuts | ?
+
+## surround @tpope
+Change surrounding | cs{current_surround}{desired_surround}
+Change surround tag | cst{desired_surround}
+Surround current word ([y]ank [s]urround [i]nside [w]ord) | ysiw{desired_surround}
+Add surround spaces | cs]{ - with space; cs]} - no space
+Surround entire line | yss{desired_surround}
+Delete surroundind | ds{current_surround}

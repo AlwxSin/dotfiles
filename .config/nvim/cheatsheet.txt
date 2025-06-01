@@ -38,3 +38,7 @@ Surround current word ([y]ank [s]urround [i]nside [w]ord) | ysiw{desired_surroun
 Add surround spaces | cs]{ - with space; cs]} - no space
 Surround entire line | yss{desired_surround}
 Delete surroundind | ds{current_surround}
+
+## window-vim @layout
+Toggle layout horizontal | <C-w> K 
+Toggle layout vertical | <C-w> H 

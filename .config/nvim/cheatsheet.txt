@@ -1,0 +1,32 @@
+## tmux @quick @reference @sessions
+List sessions | s
+Name session | $
+Detach session | d
+
+## tmux @quick @reference @windows @tabs
+Create window/tab | c
+List windows | w
+Next window | n
+Prev window | p
+Find window | f
+Name window | ,
+Kill window | &
+
+## tmux @quick @reference @panes
+Vertical split | %
+Horizontal split | "
+Swap panes | o
+Show pane number | q
+Kill pane | x
+Break pane into window | +
+Restore pane from window | -
+Toggle pane layout | SHIFT+SPACE
+Move the current pane left | {
+Move the current pane right | }
+Toggle pane zoom | z
+
+## tmux @quick @reference @misc
+Command mode | :
+Copy Mode | [
+Big clock | t
+List shortcuts | ?

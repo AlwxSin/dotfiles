@@ -62,5 +62,25 @@ return {
 		vim.keymap.set("n", "<Leader>ds", function()
 			widg.centered_float(widg.scopes)
 		end, { desc = "dap widget scopes" })
+
+		-- vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+
+        -- add loaded envs to each configuration
+        -- so we don't need to pass them manually
+        local go_configs = dap.configurations.go or {}
+        local envs = vim.fn.environ()
+
+        for _, config in ipairs(go_configs) do
+            if config.env then
+                for k, v in pairs(envs) do
+                    config.env[k] = v
+                end
+            else
+                config.env = envs
+            end
+        end
+
+        dap.configurations.go = go_configs
+
 	end,
 }

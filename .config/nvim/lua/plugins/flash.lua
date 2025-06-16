@@ -4,7 +4,7 @@ return {
 	event = "VeryLazy",
 	keys = {
 		{
-			"s",
+			"<CR>",
 			mode = { "n", "x", "o" },
 			function()
 				require("flash").jump()
@@ -36,6 +36,7 @@ return {
 			desc = "Treesitter Search",
 		},
 		{
+            -- TODO conflicts with tmux PREFIX
 			"<c-s>",
 			mode = { "c" },
 			function()

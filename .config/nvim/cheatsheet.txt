@@ -42,3 +42,11 @@ Delete surroundind | ds{current_surround}
 ## window-vim @layout
 Toggle layout horizontal | <C-w> K 
 Toggle layout vertical | <C-w> H 
+
+## mini
+Toggle Split/Join arguments | gS
+Evaluate text and replace with output | g=
+Exchange text regions | gx
+Multiply (duplicate) text | gm
+Replace text with register | gr
+Sort text | gs

@@ -112,7 +112,7 @@ fi
 eval "$(oh-my-posh init zsh --config ~/.config/alwx_shell/omp-zen.toml)"
 
 ###### PLUGINS
-source /usr/share/zsh-antigen/antigen.zsh
+source ~/antigen.zsh
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle "MichaelAquilina/zsh-you-should-use"

@@ -1,4 +1,4 @@
-alias cat='batcat'
+alias cat='bat'
 alias caat='/usr/bin/cat'
 alias ls='exa'
 alias la='exa -la'

@@ -17,6 +17,7 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "battery": {
+    "on-click": "$TERMINAL -e btop",
     "states": {
       "warning": 30,
       "critical": 15
@@ -37,7 +38,7 @@
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "<span size='13000' foreground='#f5e0dc'> </span>",
     "tooltip-format-wifi": "Signal Strenght: {signalStrength}%",
-    "on-click": "nmtui"
+    "on-click": "$TERMINAL -e nmtui"
   },
   "pulseaudio": {
       "format": "{icon}  {volume}%",
@@ -57,6 +58,7 @@
   },
   "bluetooth": {
     "on-click": "$HOME/bin/wofi-bluetooth",
+    "on-click-right": "$TERMINAL -e bluetui",
     "format": " {status}",
     "format-connected": "",
     "format-disabled": "", // an empty format will hide the module

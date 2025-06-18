@@ -94,6 +94,9 @@ button:hover {
 #tray,
 #network,
 #mode,
+#bluetooth,
+#custom-ocvpn, 
+#custom-notification, 
 #scratchpad {
   margin-top: 2px;
   margin-bottom: 2px;
@@ -149,14 +152,23 @@ button:hover {
 
 #custom-ocvpn {
     color: gray;
-    border-radius: 15px;
-    padding-left: 6px;
-    padding-right: 6px;
 }
 
 #custom-ocvpn.active {
-    color: @lavender
+    color: @lavender;
+    border-bottom: 2px solid @lavender;
 }
+
 #custom-ocvpn.inactive {
     color: gray;
+    border-bottom: 2px solid gray;
+}
+
+#custom-notification {
+    color: @teal;
+    border-bottom: 2px solid @teal;
+}
+
+#custom-spacer {
+  min-width: 10px;
 }

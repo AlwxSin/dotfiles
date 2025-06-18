@@ -1,0 +1,23 @@
+{
+    "position": "top-right",
+    "layer": "overlay",
+    "control-center-layer": "overlay",
+    "css": "~/.config/swaync/style.css",
+    "notification-visibility": {
+        "low": true,
+        "normal": true,
+        "critical": true
+    },
+    "timeout": {
+        "low": 3,
+        "normal": 5,
+        "critical": 0
+    },
+    "transition-time": 200,
+    "notification-positions": {
+        "top-right": {
+            "anchor": "top right",
+            "margin": "10px"
+        }
+    }
+}

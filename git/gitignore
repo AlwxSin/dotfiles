@@ -3,9 +3,8 @@ venv/
 node_modules/
 typings/
 .idea/
-*.local*
-*local.sh
-alwx.local/*
+*.local.*
+*/local
 *.ipynb*
 .envrc
 .python-version

@@ -94,7 +94,8 @@ find_dirs() {
 if [[ $# -eq 1 ]]; then
     selected="$1"
 else
-    selected=$(find_dirs | fzf)
+    # selected=$(find_dirs | fzf)
+    selected=$(find_dirs | fzf --preview 'test -e {}/README.md && bat --style=plain --color=always {}/README.md || echo "No README"')
 fi
 
 if [[ -z $selected ]]; then

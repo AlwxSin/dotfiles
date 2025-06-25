@@ -2,7 +2,7 @@
   "position": "top",
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
-  "modules-right": ["network", "custom/ocvpn", "pulseaudio", "bluetooth", "battery", "clock", "custom/notification", "custom/spacer"],
+  "modules-right": ["tray", "network", "custom/ocvpn", "pulseaudio", "bluetooth", "battery", "clock", "custom/notification", "custom/spacer"],
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
@@ -38,7 +38,8 @@
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "<span size='13000' foreground='#f5e0dc'> </span>",
     "tooltip-format-wifi": "Signal Strenght: {signalStrength}%",
-    "on-click": "$TERMINAL -e nmtui"
+    "on-click": "$TERMINAL -e impala"
+    // "on-click": "$TERMINAL -e nmtui"
   },
   "pulseaudio": {
       "format": "{icon}  {volume}%",

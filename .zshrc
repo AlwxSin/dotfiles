@@ -3,6 +3,8 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+# mason downloads a lot of tools, don't need to install them separately
+export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export GOPATH=$(go env GOPATH)
 
 # Path to your Oh My Zsh installation.

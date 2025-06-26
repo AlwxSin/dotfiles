@@ -5,6 +5,7 @@ typings/
 .idea/
 *.local.*
 */local
+local*
 *.ipynb*
 .envrc
 .python-version

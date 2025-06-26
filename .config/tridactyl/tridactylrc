@@ -1,0 +1,14 @@
+" remap next and prev tab
+:bind J tabnext
+:bind K tabprev
+
+" search on page
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+bind ,<Space> nohlsearch
+
+" back and next page in history
+bind [[ back
+bind ]] forward

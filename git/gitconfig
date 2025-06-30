@@ -1,0 +1,28 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	email = alwxsin@gmail.com
+	name = alwx
+[core]
+	excludesfile = /home/alwx/.gitignore
+    autocrlf = input
+    editor = nvim
+[push]
+    default = simple
+[alias]
+    g = log --graph --pretty=format:'%Cred%h%Creset%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    st = status -sb
+    co = checkout
+    ci = commit
+    br = branch
+    please = push --force-with-lease
+    commend = commit --amend --no-edit
+[init]
+	defaultBranch = master
+[include]
+    path = ~/.gitconfig.local
+

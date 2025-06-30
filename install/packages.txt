@@ -1,0 +1,83 @@
+# base
+base
+base-devel
+brightnessctl
+
+# browser
+chromium
+zen-browser-bin
+
+# terminal
+bat
+btop
+direnv
+fastfetch
+eza
+fzf
+git
+github-cli
+gnu-netcat
+hstr
+htop
+kitty
+lazygit
+less
+oh-my-posh-bin
+ripgrep
+tmux
+traceroute
+wget
+yazi
+zsh
+
+# bluetooth
+bluetui
+bluez
+bluez-utils
+impala
+
+# hypr
+dolphin
+hypridle
+hyprland
+hyprlock
+hyprpaper
+hyprshot
+swaync
+waybar
+wofi
+
+# fonts
+meowsans-ttf
+ttf-meslo-nerd
+
+# mail
+evolution
+evolution-ews
+
+# docker
+docker
+docker-compose
+
+# neovim
+luarocks
+neovim
+
+# langs
+go
+npm
+
+# network
+iwd
+networkmanager
+network-manager-applet
+
+# vpn
+globalprotect-openconnect-git
+networkmanager-openconnect
+openconnect
+
+# other
+gnome-keyring
+keepassxc
+syncthing

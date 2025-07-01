@@ -64,11 +64,11 @@ return {
         end, { desc = "dap widget scopes" })
 
         -- set opinionated icons to every sign
-        vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
-        vim.fn.sign_define("DapBreakpointCondition", { text = "🔵", texthl = "", linehl = "", numhl = "" })
-        vim.fn.sign_define("DapLogPoint", { text = "📜", texthl = "", linehl = "", numhl = "" })
-        vim.fn.sign_define("DapStopped", { text = "⏸️", texthl = "", linehl = "", numhl = "" })
-        vim.fn.sign_define("DapBreakpointRejected", { text = "❌", texthl = "", linehl = "", numhl = "" })
+        vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "", linehl = "", numhl = "" })
+        vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "", linehl = "", numhl = "" })
+        vim.fn.sign_define("DapLogPoint", { text = "", texthl = "", linehl = "", numhl = "" })
+        vim.fn.sign_define("DapStopped", { text = "", texthl = "", linehl = "", numhl = "" })
+        vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "", linehl = "", numhl = "" })
 
         -- add loaded envs to each configuration
         -- so we don't need to pass them manually

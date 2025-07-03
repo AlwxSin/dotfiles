@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Alwx Menu
+Comment=Toggle various actions
+Exec=sh -c "$HOME/.config/wofi/scripts/alwx.sh"
+Terminal=false
+Type=Application
+Categories=Utility;
+

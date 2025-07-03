@@ -61,5 +61,10 @@ echo "$ICON_SECTION Linking .zshrc"
 [[ -f "$ROOT/.zshrc" ]] && link "$ROOT/.zshrc" "$HOME/.zshrc"
 
 echo ""
+echo "$ICON_SECTION Linking wofi .desktop files"
+mkdir -p "$HOME/.local/share/applications"
+[[ -f "$ROOT/.config/wofi/alwx.desktop" ]] && link "$ROOT/.config/wofi/alwx.desktop" "$HOME/.local/share/applications/alwx.desktop"
+
+echo ""
 echo "$ICON_DONE Done."
 

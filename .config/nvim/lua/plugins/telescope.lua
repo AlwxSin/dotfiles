@@ -12,9 +12,22 @@ return {
         "nvim-telescope/telescope.nvim",
         -- tag = "0.1.8",
         commit = "b4da76b",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        dependencies = { "nvim-lua/plenary.nvim", { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
         config = function()
+            local actions = require("telescope.actions")
             require("telescope").setup({
+                defaults = {
+                    mappings = {
+                        i = {
+                            ["<M-v>"] = actions.select_vertical,
+                            ["<M-h>"] = actions.select_horizontal,
+                        },
+                        n = {
+                            ["<M-v>"] = actions.select_vertical,
+                            ["<M-h>"] = actions.select_horizontal,
+                        },
+                    },
+                },
                 pickers = {
                     find_files = { hidden = true, no_ignore = true, no_ignore_parent = true },
                 },
@@ -22,6 +35,8 @@ return {
                     ["ui-select"] = {
                         require("telescope.themes").get_dropdown({}),
                     },
+                    fzf = {},
+                    dap = {},
                 },
             })
 
@@ -60,6 +75,7 @@ return {
 
             require("telescope").load_extension("ui-select")
             require("telescope").load_extension("dap")
+            require("telescope").load_extension("fzf")
         end,
     },
 }

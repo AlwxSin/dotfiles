@@ -123,3 +123,6 @@ export NVM_DIR="$HOME/.nvm"
 
 ###### KEY BINDINGS
 bindkey -s ^f "tmux-sessionizer\n"
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+alias ggovm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g

@@ -10,8 +10,7 @@ return {
     },
     {
         "nvim-telescope/telescope.nvim",
-        -- tag = "0.1.8",
-        commit = "b4da76b",
+        tag = "v0.1.9",
         dependencies = { "nvim-lua/plenary.nvim", { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' } },
         config = function()
             local actions = require("telescope.actions")

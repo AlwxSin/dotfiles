@@ -17,10 +17,9 @@ return {
         "neovim/nvim-lspconfig",
         config = function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities
-            local lspconfig = require("lspconfig")
 
-            lspconfig.gopls.setup({
-                capabilities = capabilities,
+            vim.lsp.config("gopls", {
+                capabilities = capabilities(),
             })
 
             vim.api.nvim_create_autocmd("LspAttach", {

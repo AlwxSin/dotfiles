@@ -11,7 +11,7 @@ echo " Running install scripts"
 "$PWD/install/packages.sh" $([[ "$DRY_RUN" == true ]] && echo "--dry-run")
 
 echo ""
-"$PWD/install/link.sh" $([[ "$DRY_RUN" == true ]] && echo "--dry-run")
+"$PWD/install/stow.sh" $([[ "$DRY_RUN" == true ]] && echo "--dry-run")
 
 echo ""
 echo " All done."

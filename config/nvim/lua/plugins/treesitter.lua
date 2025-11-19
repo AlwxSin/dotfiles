@@ -35,11 +35,11 @@ local function install_and_start()
                 return
             end
 
-            vim.notify(
-                vim.inspect("Successfully got parser " .. parser_name .. " for filetype " .. filetype),
-                vim.log.levels.DEBUG,
-                { title = "core/treesitter" }
-            )
+            -- vim.notify(
+            --     vim.inspect("Successfully got parser " .. parser_name .. " for filetype " .. filetype),
+            --     vim.log.levels.DEBUG,
+            --     { title = "core/treesitter" }
+            -- )
 
             -- Check if parser_name is available in parser configs
             local parser_configs = require("nvim-treesitter.parsers")

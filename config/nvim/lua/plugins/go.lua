@@ -1,16 +1,49 @@
 return {
     {
-        "buoto/gotests-vim",
-        -- cweill/gotest should be installed (through Mason)
+        "yanskun/gotests.nvim",
+        ft = "go",
+        config = function()
+            require("gotests").setup()
+        end,
+        keys = {
+            {
+                "<leader>Gtt",
+                function()
+                    vim.cmd "GoTests"
+                end,
+                mode = { "n" },
+                desc = "Go generate test"
+            },
+            {
+                "<leader>Gta",
+                function()
+                    vim.cmd "GoTestsAll"
+                end,
+                mode = { "n" },
+                desc = "Go generate tests for each function in file"
+            },
+
+        }
+
     },
     {
-        "edolphin-ydf/goimpl.nvim",
-        -- josharian/impl should be installed (through Mason)
-        config = function()
-            require("telescope").load_extension("goimpl")
-            vim.keymap.set("n", "<leader>im", function()
-                require("telescope").extensions.goimpl.goimpl({})
-            end, { desc = "generate [Im]plementation of interface" })
-        end,
+        "fang2hou/go-impl.nvim",
+        ft = "go",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "folke/snacks.nvim",
+        },
+        opts = {},
+        keys = {
+            {
+                "<leader>Gi",
+                function()
+                    require("go-impl").open()
+                end,
+                mode = { "n" },
+                desc = "Go generate implementation for interface",
+            },
+        },
     },
 }

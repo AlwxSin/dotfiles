@@ -1,3 +1,4 @@
+-- ensure_installed = { "lua_ls", "gopls", "gci", "gofumpt", "golangci-lint", "gotests", "impl" },
 return {
     {
         "mason-org/mason.nvim",

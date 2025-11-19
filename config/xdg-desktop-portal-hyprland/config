@@ -1,0 +1,4 @@
+[screencast]
+exec_before=swaync-client --inhibitor-add "screen-share"
+exec_after=swaync-client --inhibitor-remove "screen-share"
+

@@ -1,11 +1,13 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$(go env GOPATH)/bin
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # mason downloads a lot of tools, don't need to install them separately
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
-export GOPATH=$(go env GOPATH)
+
+# ggovm handle this
+# export PATH=$PATH:$(go env GOPATH)/bin
+# export GOPATH=$(go env GOPATH)
 
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 

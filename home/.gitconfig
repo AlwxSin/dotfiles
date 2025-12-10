@@ -24,7 +24,9 @@
     please = push --force-with-lease
     commend = commit --amend --no-edit
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [include]
     path = ~/.gitconfig.local
 
+[fetch]
+	prune = true

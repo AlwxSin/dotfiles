@@ -42,7 +42,6 @@ bluez-utils
 impala
 
 # hypr
-dolphin
 nautilus
 sushi
 hypridle
@@ -61,10 +60,6 @@ wl-clipboard
 meowsans-ttf
 ttf-meslo-nerd
 woff2-font-awesome
-
-# mail
-evolution
-evolution-ews
 
 # docker
 docker
@@ -87,13 +82,7 @@ iwd
 networkmanager
 network-manager-applet
 
-# vpn
-globalprotect-openconnect-git
-networkmanager-openconnect
-openconnect
-
 # other
-gnome-keyring
 gnome-calculator
 keepassxc
 syncthing

@@ -125,4 +125,3 @@ gt5-wayland
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 xdg-terminal-exec
-yay

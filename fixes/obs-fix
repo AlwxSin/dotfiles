@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+has_v4l2loopback() {
+  local out
+  # Keep output for visibility; avoid set -e bite with || true.
+  out=$(lsmod | grep v4l2loopback || true)
+  if [[ -n "$out" ]]; then
+    echo "$out"
+    return 0
+  fi
+  return 1
+}
+
+echo "Checking v4l2loopback state..."
+if has_v4l2loopback; then
+  echo "v4l2loopback already loaded."
+  exit 0
+fi
+
+echo "v4l2loopback not found. Attempting to install and load..."
+sudo dkms autoinstall
+sudo modprobe v4l2loopback devices=1 video_nr=10 card_label="OBS Virtual Cam" exclusive_caps=1
+
+echo "Rechecking v4l2loopback..."
+if has_v4l2loopback; then
+  echo "v4l2loopback loaded successfully."
+else
+  echo "Failed to load v4l2loopback." >&2
+  exit 1
+fi

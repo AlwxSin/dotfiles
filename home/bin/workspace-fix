@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+HYPR_CONF="$HOME/.config/hypr/hypr/windows.conf"
+
+# 1. Собираем map: description -> monitor name (DP-X)
+declare -A DESC_TO_MON
+
+while IFS=$'\t' read -r desc name; do
+  DESC_TO_MON["$desc"]="$name"
+done < <(
+  hyprctl monitors -j |
+    jq -r '.[] | select(.description != null) | "\(.description)\t\(.name)"'
+)
+
+for k in "${!DESC_TO_MON[@]}"; do
+  echo "KEY: [$k]"
+  echo "VAL: [${DESC_TO_MON[$k]}]"
+done
+
+# 2. Парсим workspace rules из конфига
+grep -E '^\s*workspace\s*=' "$HYPR_CONF" |
+while IFS= read -r line; do
+  # workspace number
+  ws=$(sed -E 's/.*workspace\s*=\s*([0-9]+).*/\1/' <<< "$line")
+
+  # интересуют только monitor:desc:
+  if [[ "$line" =~ monitor:desc: ]]; then
+    desc=$(sed -E 's/.*monitor:desc:(.*)$/\1/' <<< "$line")
+
+    mon="${DESC_TO_MON[$desc]:-}"
+
+    if [[ -n "$mon" ]]; then
+      echo "→ workspace $ws → $mon ($desc)"
+      hyprctl dispatch moveworkspacetomonitor "$ws" "$mon"
+    else
+      echo "× workspace $ws: monitor '$desc' not connected"
+    fi
+  fi
+done
+

@@ -66,3 +66,5 @@ xdg-mime default libreoffice-startcenter.desktop application/vnd.oasis.opendocum
 
 xdg-mime default libreoffice-startcenter.desktop application/rtf
 xdg-mime default libreoffice-startcenter.desktop text/csv
+
+xdg-mime default loop.desktop x-scheme-handler/loop

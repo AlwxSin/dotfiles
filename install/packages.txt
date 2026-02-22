@@ -4,7 +4,7 @@ base-devel
 brightnessctl
 
 # browser
-chromium
+#chromium
 zen-browser-bin
 
 # terminal
@@ -34,6 +34,7 @@ unzip
 wget
 yazi
 zsh
+tree
 
 # bluetooth
 bluetui
@@ -71,7 +72,7 @@ luarocks
 neovim
 
 # langs
-go
+# go - use govm instead
 npm
 cargo
 clang

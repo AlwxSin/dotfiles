@@ -35,48 +35,43 @@ button:hover {
     border-top: 2px solid @mauve;
 }
 
-#workspaces {
-    background: rgba(23, 23, 23, 0.0);
-    color: #888789;
-    box-shadow: none;
-    text-shadow: none;
-    border-radius: 9px;
-    transition: 0.2s ease;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 1px;
-}
+/* #workspaces { */
+/*     background: rgba(23, 23, 23, 0.0); */
+/*     color: #888789; */
+/*     box-shadow: none; */
+/*     text-shadow: none; */
+/*     border-radius: 9px; */
+/*     transition: 0.2s ease; */
+/*     padding-left: 4px; */
+/*     padding-right: 4px; */
+/*     padding-top: 1px; */
+/* } */
 
 #workspaces button {
-    background: rgba(23, 23, 23, 0.0);
-    color: #A1BDCE;
-    box-shadow: none;
-    text-shadow: none;
-    border-radius: 9px;
-    transition: 0.2s ease;
-    padding-left: 4px;
-    padding-right: 4px;
+  background: transparent;
+  font-weight: 900;
+  font-size: 13pt;
+  color: #c0caf5;
+  border: none;
+  /* margin: 4px; */
+  /* padding: 0 6px 0px 6px; */
 }
 
-/*#workspaces button.focused {*/
-/*    background-color: rgba(0, 0, 0, 0.3);*/
-/*    color: @rosewater;*/
-/*    border-top: 2px solid @rosewater;*/
-/*}*/
+#workspaces button label {
+    padding-top: 4px;
+}
+
 
 #workspaces button.active {
-    background: rgba(23, 23, 23, 0.0);
-    transition: all 0.3s ease;
-    padding-left: 4px;
-    padding-right: 4px;
+    border-bottom: 2px solid @flamingo;
 }
 
 #workspaces button:hover {
-    background: none;
-    color: #72D792;
-    animation: ws_hover 20s ease-in-out 1;
-    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+  background: #11111b;
+  color: #cdd6f4;
+  box-shadow: none;
 }
+
 
 #workspaces button.urgent {
     background-color: #eb4d4b;
@@ -148,20 +143,6 @@ button:hover {
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right>widget:last-child>#workspaces {
     margin-right: 0;
-}
-
-#custom-ocvpn {
-    color: gray;
-}
-
-#custom-ocvpn.active {
-    color: @lavender;
-    border-bottom: 2px solid @lavender;
-}
-
-#custom-ocvpn.inactive {
-    color: gray;
-    border-bottom: 2px solid gray;
 }
 
 #custom-notification {

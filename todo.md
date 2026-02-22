@@ -1,8 +1,27 @@
-[x] swaync - какие-то странные уведомления, слишком мелкие. Уже стоит какой-то `dunst`
-[x] wazuh-agent жалуется, что у меня слишком новая версия агент, а должна быть такая же, как и у менеджера
-[x] nvim-treesitter change branch to main
-[x] nvim in hypr dir - telescope doesn't show&search files in CTRL+P
-[x] turn off notifications on screen share
-[] nvim mason ensure installed
-[] goimpl doesn't find in std lsp_workspace_symbols
-[] install script - install yay before other
+- [x] swaync - какие-то странные уведомления, слишком мелкие. Уже стоит какой-то `dunst`
+- [x] wazuh-agent жалуется, что у меня слишком новая версия агент, а должна быть такая же, как и у менеджера
+- [x] nvim-treesitter change branch to main
+- [x] nvim in hypr dir - telescope doesn't show&search files in CTRL+P
+- [x] turn off notifications on screen share
+- [x] nvim mason ensure installed
+- [x] goimpl doesn't find in std lsp_workspace_symbols
+  - it's ok, just setup project correctly
+- [X] install script - install yay before other
+- [x] run keepassxc on startup
+  - It runs, but doesn't shows in a tray
+- [x] install chromium (not found in repos, wtf?) (do i need it at all???)
+- [] if hyprland folder exists, remove it before stowing
+- [x] Super+M do not exits into SDDM, just blank screen - FIXED by `systemctl restart sddm`, I do not need to exit actually, lock session is enough
+- [] Screenshots
+  - [] wayfreeze
+  - [] binding for "send screenshot into editing program"
+  - [] maybe, rearrange binding to PRINTSCREEN key
+- [x] nvim opens files in folded mode (wtf???) - it was script for treesitter
+- [x] nvim treesitter
+  - [x] hangs when open second file in vsplit (some error on async)
+  - [x] installs and compiles syntax everytime I open file
+- [x] NumLock by default (search in omarchy hypr configs)
+- [x] move from telescope to Snacks??? At least, try it
+- [x] install steam
+- [x] remap <C-s> tmux leader to smth meaninfull
+  - [x] remap <C-v> as it conflicts with nvim vsplit in picker (now default <C-s> opens in vsplit, as I rarely use horizontal split)

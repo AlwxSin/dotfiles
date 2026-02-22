@@ -1,6 +1,12 @@
 " remap next and prev tab
-:bind J tabnext
-:bind K tabprev
+bind J tabnext
+bind K tabprev
+
+" Smooth scroll
+bind j scrollpx 0 40
+bind k scrollpx 0 -40
+bind <C-d> scrollpx 0 200
+bind <C-u> scrollpx 0 -200
 
 " search on page
 bind / fillcmdline find

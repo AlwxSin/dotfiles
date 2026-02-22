@@ -4,6 +4,7 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # mason downloads a lot of tools, don't need to install them separately
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
+export PATH=$PATH:$HOME/.cargo/bin
 
 # ggovm handle this
 # export PATH=$PATH:$(go env GOPATH)/bin
@@ -130,5 +131,15 @@ export NVM_DIR="$HOME/.nvm"
 ###### KEY BINDINGS
 bindkey -s ^f "tmux-sessionizer\n"
 
-export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
-alias ggovm="$GOPATH/bin/g"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+# The next line updates PATH for the govm binary.
+export PATH=$PATH:$HOME/.govm/bin
+
+# The next lines are added by govm
+export GOROOT=/home/alwx/.govm/go
+export GOPATH=$HOME/go
+export PATH=$PATH:/home/alwx/.govm/go/bin
+# End of govm path
+
+[[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
+
+! { which werf | grep -qsE "^/home/alwx/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")

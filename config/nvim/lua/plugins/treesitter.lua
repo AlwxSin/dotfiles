@@ -1,117 +1,109 @@
---- Register parsers from opts.ensure_installed
-local function register(ensure_installed)
-    for filetype, parser in pairs(ensure_installed) do
-        local filetypes = vim.treesitter.language.get_filetypes(parser)
-        if not vim.tbl_contains(filetypes, filetype) then
-            table.insert(filetypes, filetype)
-        end
-
-        -- register and start parsers for filetypes
-        vim.treesitter.language.register(parser, filetypes)
-    end
-end
-
---- Install and start parsers for nvim-treesitter.
-local function install_and_start()
-    -- Auto-install and start treesitter parser for any buffer with a registered filetype
-    vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-        callback = function(event)
-            local bufnr = event.buf
-            local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-
-            -- Skip if no filetype
-            if filetype == "" then
-                return
-            end
-
-            -- Get parser name based on filetype
-            local parser_name = vim.treesitter.language.get_lang(filetype) -- WARNING: might return filetype (not helpful)
-            if not parser_name then
-                -- vim.notify(
-                --   "Filetype " .. vim.inspect(filetype) .. " has no parser registered",
-                --   vim.log.levels.WARN,
-                --   { title = "core/treesitter" }
-                -- )
-                return
-            end
-
-            -- vim.notify(
-            --     vim.inspect("Successfully got parser " .. parser_name .. " for filetype " .. filetype),
-            --     vim.log.levels.DEBUG,
-            --     { title = "core/treesitter" }
-            -- )
-
-            -- Check if parser_name is available in parser configs
-            local parser_configs = require("nvim-treesitter.parsers")
-            local parser_can_be_used = nil
-            parser_can_be_used = parser_configs[parser_name]
-            if not parser_can_be_used then
-                -- vim.notify(
-                --   "Parser config does not have parser " .. vim.inspect(parser_name) .. ", skipping",
-                --   vim.log.levels.WARN,
-                --   { title = "core/treesitter" }
-                -- )
-                return -- Parser not ailable, skip silently
-            end
-
-            local parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-
-            -- If not installed, install parser synchronously
-            if not parser_installed then
-                require("nvim-treesitter").install({ parser_name }):wait(30000) -- main branch syntax
-                -- vim.notify("Installed parser: " .. parser_name, vim.log.levels.INFO, { title = "core/treesitter" })
-            end
-
-            -- Check so tree-sitter can see the newly installed parser
-            parser_installed = pcall(vim.treesitter.get_parser, bufnr, parser_name)
-            if not parser_installed then
-                -- vim.notify(
-                --     "Failed to get parser for " .. parser_name .. " after installation",
-                --     vim.log.levels.WARN,
-                --     { title = "core/treesitter" }
-                -- )
-                return
-            end
-
-            -- Start treesitter for this buffer
-            vim.treesitter.start(bufnr, parser_name)
-        end,
-    })
-end
-
-local function treesitter_foldexpr()
-    vim.opt_local.foldmethod = "expr"
-    vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    vim.opt_local.foldtext = "v:lua.custom_foldtext()"
-end
-
+---@diagnostic disable: missing-fields
+---@module 'lazy'
+---@type LazySpec
 return {
-    {
-        "nvim-treesitter/nvim-treesitter",
-        lazy = true,
-        event = "BufRead",
-        branch = "main", -- master to be frozen
-        build = ":TSUpdate",
-        ---@class TSConfig
-        opts = {
-            -- Other plugins can pass in desired filetype/parser combos.
-            -- ensure_installed = { filetype = "parser1", filetype2 = "parser2" },
-            ensure_installed = {},
-        },
-        config = function(_, opts)
-            -- Set up folding via tree-sitter (will be overridden by LSP settings, when LSP supports folding).
-            treesitter_foldexpr()
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    branch = 'main',
+    config = function()
+      local treesitter = require('nvim-treesitter')
+      treesitter.setup {}
+      local should_install = {
+        'vim',
+        'printf',
+        'bash',
+        'lua',
+        'luadoc',
+        'json',
+        'jsonc',
+        'sql',
+        'python',
+        'gitignore',
+        'gitcommit',
+        'gitattributes',
+        'git_config',
+        'go',
+        'toml',
+        'yaml',
+        'regex',
+        'markdown',
+        'markdown_inline',
+      }
 
-            -- Register parsers from opts.ensure_installed
-            register(opts.ensure_installed)
+      treesitter.install(should_install)
 
-            -- Create autocmd which installs and starts parsers.
-            install_and_start()
-
-            -- debugging
-            -- vim.notify(vim.inspect(opts.ensure_installed))
-            -- local already_installed = require("nvim-treesitter.config").installed_parsers()
-            -- vim.notify(vim.inspect(already_installed))
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
+          if
+            vim.list_contains(
+              treesitter.get_installed(),
+              vim.treesitter.language.get_lang(args.match)
+            )
+          then
+            vim.treesitter.start(args.buf)
+          end
         end,
+      })
+    end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
     },
+    config = function()
+      require('nvim-treesitter-textobjects').setup {
+        select = {
+          lookahead = true,
+          selection_modes = {
+            ['@parameter.outer'] = 'v',
+            ['@function.outer'] = 'V',
+            ['@class.outer'] = 'V',
+          },
+          include_surrounding_whitespace = true,
+        },
+        move = {
+          set_jumps = false,
+        },
+      }
+      do -- move
+        vim.keymap.set({ 'n', 'x', 'o' }, ']]', function()
+          require('nvim-treesitter-textobjects.move').goto_next_start(
+            '@function.outer',
+            'textobjects'
+          )
+          vim.cmd('normal! zz')
+        end)
+        vim.keymap.set({ 'n', 'x', 'o' }, '[[', function()
+          require('nvim-treesitter-textobjects.move').goto_previous_start(
+            '@function.outer',
+            'textobjects'
+          )
+          vim.cmd('normal! zz')
+        end)
+      end
+    end,
+  },
+  {
+    'Wansmer/sibling-swap.nvim',
+    config = function()
+      local swap = require('sibling-swap')
+      swap.setup {
+        use_default_keymaps = false,
+      }
+      vim.keymap.set('n', '<leader>w', swap.swap_with_right_with_opp)
+      vim.keymap.set('n', '<leader>q', swap.swap_with_left_with_opp)
+    end,
+  },
+  {
+    'Wansmer/treesj',
+    config = function()
+      require('treesj').setup { use_default_keymaps = false }
+      vim.keymap.set('n', 'gJ', require('treesj').join)
+      vim.keymap.set('n', 'gS', require('treesj').split)
+      vim.keymap.set('n', '<leader>j', require('treesj').toggle)
+    end,
+  },
 }

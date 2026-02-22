@@ -12,6 +12,26 @@ return {
         scratch = { enabled = true },
         toggle = { enabled = true },
         notifier = { enabled = true },
+        picker = {
+            enabled = true,
+            -- actions = {
+            --     ["<S-CR>"] = "edit_vsplit",
+            -- },
+            win = {
+                input = {
+                    keys = {
+                        ["<c-s>"] = { "edit_vsplit", mode = { "i", "n" } },
+                    },
+                },
+                list = {
+                    keys = {
+                        ["<c-s>"] = "edit_vsplit",
+                    },
+                },
+        --
+            },
+        },
+        explorer = { enabled = true },
     },
     keys = {
         {
@@ -34,6 +54,71 @@ return {
                 Snacks.notifier.show_history()
             end,
             desc = "Show notifications history",
+        },
+        {
+            "<C-n>",
+            function()
+                Snacks.explorer()
+            end,
+            desc = "Toggle explorer",
+        },
+
+        -- pickers
+        {
+            "<C-p>",
+            function()
+                Snacks.picker.files()
+            end,
+            desc = "Find files in current project",
+        },
+        {
+            "<leader>fg",
+            function()
+                Snacks.picker.grep()
+            end,
+            desc = "[F]ind in files [g]rep",
+        },
+        {
+            "<leader>fb",
+            function()
+                Snacks.picker.buffers()
+            end,
+            desc = "[F]ind in [b]uffers",
+        },
+        {
+            "<leader>fB",
+            function()
+                Snacks.picker.lines()
+            end,
+            desc = "[F]ind in current [B]uffers",
+        },
+        {
+            "<leader>fD",
+            function()
+                Snacks.picker.diagnostics()
+            end,
+            desc = "[F]ind in [D]iagnostics",
+        },
+        {
+            "<leader>fl",
+            function()
+                Snacks.picker.git_log()
+            end,
+            desc = "[F]ind in [g]it [l]og",
+        },
+        {
+            "<leader>ff",
+            function()
+                Snacks.picker.git_log_file()
+            end,
+            desc = "[F]ind in [g]it [f]ile log",
+        },
+        {
+            "<leader>fp",
+            function()
+                Snacks.picker.pickers()
+            end,
+            desc = "[F]ind in [p]ickers",
         },
     },
     init = function()
@@ -75,7 +160,7 @@ return {
             callback = function(ev)
                 local client = vim.lsp.get_client_by_id(ev.data.client_id)
                 local value = ev.data.params
-                .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
+                    .value --[[@as {percentage?: number, title?: string, message?: string, kind: "begin" | "report" | "end"}]]
                 if not client or type(value) ~= "table" then
                     return
                 end

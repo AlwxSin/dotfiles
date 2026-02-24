@@ -68,7 +68,7 @@
       "on-click": "pavucontrol"
   },
   "bluetooth": {
-    "on-click": "$HOME/bin/wofi-bluetooth",
+    "on-click": "$HOME/.config/bin/wofi-bluetooth",
     "on-click-right": "$TERMINAL -e bluetui",
     "format": " {status}",
     "format-connected": "",

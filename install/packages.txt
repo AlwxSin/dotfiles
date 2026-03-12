@@ -51,6 +51,7 @@ hyprlock
 hyprpaper
 hyprshot
 hyprland-qtutils
+hyprpolkitagent
 swaync
 waybar
 wofi

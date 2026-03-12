@@ -28,7 +28,7 @@ return {
                         ["<c-s>"] = "edit_vsplit",
                     },
                 },
-        --
+                --
             },
         },
         explorer = { enabled = true },
@@ -58,7 +58,7 @@ return {
         {
             "<C-n>",
             function()
-                Snacks.explorer()
+                Snacks.explorer({ hidden = true, ignored = true, follow = true, exclude = { ".git" }, })
             end,
             desc = "Toggle explorer",
         },
@@ -67,7 +67,7 @@ return {
         {
             "<C-p>",
             function()
-                Snacks.picker.files()
+                Snacks.picker.files({ hidden = true, ignored = true, follow = true, exclude = { ".git" }, })
             end,
             desc = "Find files in current project",
         },

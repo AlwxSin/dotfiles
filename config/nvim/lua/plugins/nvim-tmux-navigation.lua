@@ -7,6 +7,6 @@ return {
         vim.keymap.set("n", "<C-k>", "<Cmd>NvimTmuxNavigateUp<CR>", {})
         vim.keymap.set("n", "<C-l>", "<Cmd>NvimTmuxNavigateRight<CR>", {})
 
-        vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux popup -E tmux-sessionizer<CR>")
+        vim.keymap.set("n", "<M-f>", "<cmd>silent !tmux popup -E tmux-sessionizer<CR>")
     end,
 }

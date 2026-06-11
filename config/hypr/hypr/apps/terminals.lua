@@ -1,0 +1,4 @@
+-- Placeholder for terminal-class rules.
+-- Old ones were 
+-- # Define terminal tag to style them uniformly
+-- windowrule = tag +terminal, class:(Alacritty|kitty|com.mitchellh.ghostty)

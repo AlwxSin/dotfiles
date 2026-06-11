@@ -1,0 +1,55 @@
+#!/bin/bash
+
+set -e
+
+if ! gum confirm "Update system?"; then
+  exit 0
+fi
+
+# Snapshot
+echo "Creating snapshot..."
+for config in $(sudo snapper --csvout list-configs | awk -F, 'NR>1 {print $1}'); do
+  sudo snapper -c "$config" create -c number -d "pre-update"
+done
+
+# Block screensaver
+hyprctl dispatch tagwindow +noidle &>/dev/null || true
+
+trap 'hyprctl dispatch tagwindow -- -noidle &>/dev/null || true' EXIT
+
+# Keyrings
+echo "Updating signing keys..."
+sudo pacman -Sy --noconfirm archlinux-keyring
+
+# System packages
+echo "Updating system packages..."
+sudo pacman -Syyu --noconfirm
+
+# AUR packages
+if pacman -Qem &>/dev/null; then
+  echo "Updating AUR packages..."
+  yay -Sua --noconfirm --cleanafter
+fi
+
+# Orphans
+orphans=$(pacman -Qtdq 2>/dev/null || true)
+if [[ -n $orphans ]]; then
+  echo "Removing orphan packages..."
+  for pkg in $orphans; do
+    sudo pacman -Rs --noconfirm "$pkg" || true
+  done
+fi
+
+echo ""
+
+# Reboot checks
+if [[ ! -d /usr/lib/modules/$(uname -r) ]]; then
+  gum confirm "Kernel updated. Reboot now?" && systemctl reboot
+fi
+
+running_hyprland=$(readlink /proc/$(pgrep -x Hyprland)/exe 2>/dev/null || true)
+if [[ $running_hyprland == *"(deleted)"* ]]; then
+  gum confirm "Hyprland updated. Reboot now?" && systemctl reboot
+fi
+
+echo "Done."

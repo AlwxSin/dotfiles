@@ -5,8 +5,14 @@ typings/
 .idea/
 *.local.*
 */local
+tmp.local/
 local*
 *.ipynb*
 .envrc
 .python-version
 go.work
+
+# Agents
+CLAUDE.md
+AGENTS.md
+.claude/

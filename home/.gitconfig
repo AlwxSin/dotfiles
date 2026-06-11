@@ -13,6 +13,7 @@
     editor = nvim
 [push]
     default = simple
+    autoSetupRemote = true
 [pull]
     rebase = true
 [alias]

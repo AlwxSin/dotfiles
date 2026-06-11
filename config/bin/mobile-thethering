@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+IFACE="wlan0"
+DNS_SERVERS="1.1.1.1 8.8.8.8"
+
+usage() {
+  echo "Usage: $0 {up|down}"
+  exit 1
+}
+
+require_root() {
+  if [[ $EUID -ne 0 ]]; then
+    echo "Run with sudo"
+    exit 1
+  fi
+}
+
+case "${1:-}" in
+  up)
+    require_root
+    echo "[+] Setting DNS to Cloudflare/Google on $IFACE"
+    resolvectl dns "$IFACE" $DNS_SERVERS
+    resolvectl domain "$IFACE" "~."
+    resolvectl flush-caches
+    echo "[+] Done"
+    ;;
+
+  down)
+    require_root
+    echo "[+] Reverting DNS on $IFACE"
+    resolvectl revert "$IFACE"
+    resolvectl flush-caches
+    echo "[+] Done"
+    ;;
+
+  *)
+    usage
+    ;;
+esac

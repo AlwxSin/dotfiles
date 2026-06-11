@@ -1,6 +1,5 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.config/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-export PATH=$PATH:/usr/local/go/bin
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 # mason downloads a lot of tools, don't need to install them separately
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
@@ -11,6 +10,8 @@ export PATH=$PATH:$HOME/.cargo/bin
 # export GOPATH=$(go env GOPATH)
 
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+
+fpath=(~/.zsh/completions $fpath)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -99,6 +100,14 @@ fi
 
 source ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh
 
+# libs should go first as plugins can rewrite smth
+zcomet load ohmyzsh lib functions.zsh
+zcomet load ohmyzsh lib clipboard.zsh
+zcomet load ohmyzsh lib completion.zsh
+zcomet load ohmyzsh lib directories.zsh
+zcomet load ohmyzsh lib key-bindings.zsh
+
+zcomet load ohmyzsh lib termsupport.zsh
 zcomet load ohmyzsh plugins/gitfast
 zcomet load ohmyzsh plugins/direnv
 zcomet load ohmyzsh plugins/fzf
@@ -109,13 +118,6 @@ zcomet load ohmyzsh plugins/helm
 zcomet load ohmyzsh plugins/kubectl
 zcomet load ohmyzsh plugins/nats
 zcomet load MichaelAquilina/zsh-you-should-use
-
-zcomet load ohmyzsh lib functions.zsh
-zcomet load ohmyzsh lib clipboard.zsh
-zcomet load ohmyzsh lib completion.zsh
-zcomet load ohmyzsh lib directories.zsh
-zcomet load ohmyzsh lib key-bindings.zsh
-zcomet load ohmyzsh lib termsupport.zsh
 
 zcomet load zsh-users/zsh-syntax-highlighting
 zcomet load zsh-users/zsh-autosuggestions
@@ -129,7 +131,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 ###### KEY BINDINGS
-bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s '^[f' "tmux-sessionizer\n"
 
 # The next line updates PATH for the govm binary.
 export PATH=$PATH:$HOME/.govm/bin
@@ -139,7 +141,9 @@ export GOROOT=/home/alwx/.govm/go
 export GOPATH=$HOME/go
 export PATH=$PATH:/home/alwx/.govm/go/bin
 # End of govm path
+export PATH=$PATH:$GOPATH/bin
 
 [[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
 
 ! { which werf | grep -qsE "^/home/alwx/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
+

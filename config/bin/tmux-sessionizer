@@ -55,7 +55,7 @@ hydrate() {
 sanity_check
 
 # if TS_SEARCH_PATHS is not set use default
-[[ -n "$TS_SEARCH_PATHS" ]] || TS_SEARCH_PATHS=(~/ ~/personal ~/personal/dev/env/.config)
+[[ -n "$TS_SEARCH_PATHS" ]] || TS_SEARCH_PATHS=(~/ ~/Projects)
 
 # Add any extra search paths to the TS_SEARCH_PATHS array
 # e.g : EXTRA_SEARCH_PATHS=("$HOME/extra1:4" "$HOME/extra2")
@@ -87,7 +87,7 @@ find_dirs() {
             path="$entry"
         fi
 
-        [[ -d "$path" ]] && find "$path" -mindepth 1 -maxdepth "${depth:-${TS_MAX_DEPTH:-1}}" -path '*/.git' -prune -o -type d -print
+        [[ -d "$path" ]] && find -L "$path" -mindepth 1 -maxdepth "${depth:-${TS_MAX_DEPTH:-1}}" -path '*/.git' -prune -o -type d -print
     done
 }
 
@@ -95,7 +95,7 @@ if [[ $# -eq 1 ]]; then
     selected="$1"
 else
     # selected=$(find_dirs | fzf)
-    selected=$(find_dirs | fzf --preview 'test -e {}/README.md && bat --style=plain --color=always {}/README.md || echo "No README"')
+    selected=$(find_dirs | awk '!seen[$0]++' | fzf --preview 'test -e {}/README.md && bat --style=plain --color=always {}/README.md || echo "No README"')
 fi
 
 if [[ -z $selected ]]; then

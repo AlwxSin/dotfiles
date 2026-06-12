@@ -4,7 +4,8 @@
     font-family: "MesloLGS Nerd Font";
     font-size: 16px;
     min-height: 0;
-    /* font-weight: bold; */
+    font-weight: bold;
+    letter-spacing: -1px;
 }
 
 window#waybar {

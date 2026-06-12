@@ -70,7 +70,11 @@ else
 fi
 
 ###### PROMT
-eval "$(oh-my-posh init zsh --config ~/.config/alwx_shell/omp-zen.toml)"
+_omp_cache="${ZSH_CACHE_DIR}/omp_init.zsh"
+if [[ ! -f "$_omp_cache" || ~/.config/alwx_shell/omp-zen.toml -nt "$_omp_cache" ]]; then
+  oh-my-posh init zsh --config ~/.config/alwx_shell/omp-zen.toml >| "$_omp_cache"
+fi
+source "$_omp_cache"
 
 ###### PLUGINS
 ####### OH-MY-ZSH
@@ -84,13 +88,6 @@ eval "$(oh-my-posh init zsh --config ~/.config/alwx_shell/omp-zen.toml)"
 # plugins=(git httpie docker direnv fzf golang helm kubectl nats)
 # source $ZSH/oh-my-zsh.sh
 
-####### ANTIGEN
-# source ~/antigen.zsh
-# antigen bundle zsh-users/zsh-autosuggestions
-# antigen bundle zsh-users/zsh-syntax-highlighting
-# antigen bundle "MichaelAquilina/zsh-you-should-use"
-# antigen apply
-
 ###### ZCOMET
 # wow, it's fast
 # Clone zcomet if necessary
@@ -101,34 +98,55 @@ fi
 source ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh
 
 # libs should go first as plugins can rewrite smth
-zcomet load ohmyzsh lib functions.zsh
-zcomet load ohmyzsh lib clipboard.zsh
 zcomet load ohmyzsh lib completion.zsh
 zcomet load ohmyzsh lib directories.zsh
 zcomet load ohmyzsh lib key-bindings.zsh
 
-zcomet load ohmyzsh lib termsupport.zsh
 zcomet load ohmyzsh plugins/gitfast
 zcomet load ohmyzsh plugins/direnv
 zcomet load ohmyzsh plugins/fzf
-zcomet load ohmyzsh plugins/httpie
-zcomet load ohmyzsh plugins/docker
 zcomet load ohmyzsh plugins/golang
-zcomet load ohmyzsh plugins/helm
-zcomet load ohmyzsh plugins/kubectl
-zcomet load ohmyzsh plugins/nats
 zcomet load MichaelAquilina/zsh-you-should-use
 
-zcomet load zsh-users/zsh-syntax-highlighting
+zcomet load zdharma-continuum/fast-syntax-highlighting
 zcomet load zsh-users/zsh-autosuggestions
+
+zcomet load aloxaf/fzf-tab
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
 zcomet compinit
+
+###### LAZY LOAD
+kubectl() {
+  unfunction kubectl
+  source <(command kubectl completion zsh)
+  kubectl "$@"
+}
+
+helm() {
+  unfunction helm
+  source <(command helm completion zsh)
+  helm "$@"
+}
+
+werf() {
+  unfunction werf
+  [[ -x "$HOME/bin/trdl" ]] && source "$($HOME/bin/trdl use werf 2 stable)"
+  werf "$@"
+}
+
+docker() {
+  unfunction docker
+  zcomet load ohmyzsh plugins/docker
+  docker "$@"
+}
 
 # MY ENVS
 source "$HOME/.config/alwx_shell/env.sh"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 ###### KEY BINDINGS
 bindkey -s '^[f' "tmux-sessionizer\n"
@@ -144,6 +162,4 @@ export PATH=$PATH:/home/alwx/.govm/go/bin
 export PATH=$PATH:$GOPATH/bin
 
 [[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
-
-! { which werf | grep -qsE "^/home/alwx/.trdl/"; } && [[ -x "$HOME/bin/trdl" ]] && source $("$HOME/bin/trdl" use werf "2" "stable")
 

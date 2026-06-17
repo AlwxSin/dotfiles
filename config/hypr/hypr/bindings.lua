@@ -60,7 +60,9 @@ hl.bind("XF86AudioLowerVolume",  hl.dsp.exec_cmd("pamixer --decrease=5 --unmute"
 hl.bind("XF86AudioMute",         hl.dsp.exec_cmd("pamixer --toggle-mute"))
 
 hl.bind("XF86MonBrightnessUp",   hl.dsp.exec_cmd("brightnessctl set +10%"), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 10%-"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd(
+    "sh -c 'cur=$(brightnessctl get); if [ \"$cur\" -le 50 ]; then brightnessctl set 10-; else brightnessctl set 10%-; fi'"
+), { repeating = true })
 
 -- Apple AirPods play/pause (bindl → locked screen)
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })

@@ -78,3 +78,10 @@ hl.bind(mod .. " + S",                hl.dsp.exec_cmd("grimblast --notify --free
 hl.bind(mod .. " + CTRL + S",         hl.dsp.exec_cmd("grimblast --notify --freeze copy area"))
 hl.bind(mod .. " + SHIFT + S",        hl.dsp.exec_cmd("sh -c 'grimblast --freeze save active - | satty --filename - --early-exit --copy-command wl-copy'"))
 hl.bind(mod .. " + CTRL + SHIFT + S", hl.dsp.exec_cmd("sh -c 'grimblast --freeze save area - | satty --filename - --early-exit --copy-command wl-copy'"))
+
+-- OCR: extract text from screen region → clipboard
+local ocr_cmd = [[sh -c 'grimblast --freeze save area - | tesseract stdin stdout --oem 1 --psm 6 -l eng+rus --dpi 300 2>/dev/null | tr -d "\f" | wl-copy && notify-send "OCR" "Copied to clipboard"']]
+hl.bind(mod .. " + CTRL + O", hl.dsp.exec_cmd(ocr_cmd))
+
+-- Voxtype: toggle push-to-talk dictation
+hl.bind(mod .. " + CTRL + X", hl.dsp.exec_cmd("voxtype record toggle"))

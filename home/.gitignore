@@ -16,3 +16,4 @@ go.work
 CLAUDE.md
 AGENTS.md
 .claude/
+.claude-handoff/

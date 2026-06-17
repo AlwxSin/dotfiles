@@ -5,7 +5,7 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=$PATH:$HOME/.local/share/nvim/mason/bin
 export PATH=$PATH:$HOME/.cargo/bin
 
-# ggovm handle this
+# ggovm handle this, do not edit
 # export PATH=$PATH:$(go env GOPATH)/bin
 # export GOPATH=$(go env GOPATH)
 
@@ -77,19 +77,7 @@ fi
 source "$_omp_cache"
 
 ###### PLUGINS
-####### OH-MY-ZSH
-# Path to your Oh My Zsh installation.
-# export ZSH="$HOME/.oh-my-zsh"
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-# plugins=(git httpie docker direnv fzf golang helm kubectl nats)
-# source $ZSH/oh-my-zsh.sh
-
 ###### ZCOMET
-# wow, it's fast
 # Clone zcomet if necessary
 if [[ ! -f ${ZDOTDIR:-${HOME}}/.zcomet/bin/zcomet.zsh ]]; then
   command git clone https://github.com/agkozak/zcomet.git ${ZDOTDIR:-${HOME}}/.zcomet/bin
@@ -157,9 +145,8 @@ export PATH=$PATH:$HOME/.govm/bin
 # The next lines are added by govm
 export GOROOT=/home/alwx/.govm/go
 export GOPATH=$HOME/go
-export PATH=$PATH:/home/alwx/.govm/go/bin
+export PATH=$PATH:$GOROOT/bin
 # End of govm path
-export PATH=$PATH:$GOPATH/bin
 
 [[ "$PATH" == *"$HOME/bin:"* ]] || export PATH="$HOME/bin:$PATH"
 

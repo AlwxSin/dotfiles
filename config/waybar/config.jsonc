@@ -48,6 +48,8 @@
     "format-alt": "<span foreground='#B1E3AD'>{icon} </span> {time}",
     "format-full": "<span foreground='#B1E3AD'> </span>{capacity}%",
     "format-icons": ["", "", "", "", ""],
+    "tooltip-format-discharging": "{power:>1.0f}W↓  {capacity}%  {time}",
+    "tooltip-format-charging": "{power:>1.0f}W↑  {capacity}%  {time}",
     "tooltip-format": "{time}"
   },
   "network": {

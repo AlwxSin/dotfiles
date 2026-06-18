@@ -102,15 +102,15 @@ do_status() {
     if (( remaining > 0 )); then
         local rem_str
         rem_str=$(format_duration "$remaining")
-        printf '{"text": "☕ %s", "tooltip": "Hypridle snoozed, resumes in %s", "class": "snoozed"}\n' \
+        printf '{"text": " %s", "tooltip": "Hypridle snoozed, resumes in %s", "class": "snoozed"}\n' \
             "$rem_str" "$rem_str"
     elif is_hypridle_active; then
-        printf '{"text": "☕", "tooltip": "Hypridle active", "class": "idle"}\n'
+        printf '{"text": "", "tooltip": "Hypridle active", "class": "idle"}\n'
     else
-        printf '{"text": "☕", "tooltip": "Hypridle disabled", "class": "active"}\n'
+        printf '{"text": "", "tooltip": "Hypridle disabled", "class": "active"}\n'
     fi
 }
-
+# ☕
 do_toggle() {
     if is_hypridle_active; then
         systemctl --user stop hypridle.service

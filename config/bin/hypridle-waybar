@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+
+SNOOZE_FILE="/tmp/hypridle-snooze-until"
+SNOOZE_UNIT="hypridle-snooze"
+WAYBAR_SIGNAL=8
+
+is_hypridle_active() {
+    systemctl --user is-active --quiet hypridle.service
+}
+
+cancel_snooze() {
+    systemctl --user stop "${SNOOZE_UNIT}.timer" 2>/dev/null || true
+    systemctl --user stop "${SNOOZE_UNIT}.service" 2>/dev/null || true
+    systemctl --user reset-failed "${SNOOZE_UNIT}.timer" "${SNOOZE_UNIT}.service" 2>/dev/null || true
+    rm -f "$SNOOZE_FILE"
+}
+
+arm_snooze() {
+    local seconds=$1
+    local until=$(( $(date +%s) + seconds ))
+
+    cancel_snooze
+
+    systemctl --user stop hypridle.service
+    echo "$until" > "$SNOOZE_FILE"
+
+    systemd-run --user \
+        --on-active="${seconds}s" \
+        --unit="$SNOOZE_UNIT" \
+        --timer-property=RemainAfterElapse=no \
+        /usr/bin/bash -c "rm -f '$SNOOZE_FILE' && systemctl --user start hypridle.service && notify-send -i caffeine -u normal 'Hypridle' 'Idle detection resumed' && pkill -RTMIN+${WAYBAR_SIGNAL} waybar"
+}
+
+snooze_remaining() {
+    if [[ -f "$SNOOZE_FILE" ]]; then
+        local until
+        until=$(cat "$SNOOZE_FILE")
+        local now
+        now=$(date +%s)
+        local rem=$(( until - now ))
+        if (( rem > 0 )); then
+            echo "$rem"
+        else
+            rm -f "$SNOOZE_FILE"
+            echo 0
+        fi
+    else
+        echo 0
+    fi
+}
+
+format_duration() {
+    local secs=$1
+    if (( secs < 60 )); then
+        echo "${secs}s"
+    elif (( secs < 3600 )); then
+        echo "$((secs / 60))m"
+    else
+        local h=$(( secs / 3600 ))
+        local m=$(( (secs % 3600) / 60 ))
+        (( m > 0 )) && echo "${h}h${m}m" || echo "${h}h"
+    fi
+}
+
+parse_duration() {
+    local remaining="${1// /}"
+    local total=0
+    local n
+
+    if [[ "$remaining" =~ ^[0-9]+$ ]]; then
+        echo $(( remaining * 60 ))
+        return
+    fi
+
+    if [[ "$remaining" =~ ^([0-9]+)d ]]; then
+        n="${BASH_REMATCH[1]}"
+        total=$(( total + n * 86400 ))
+        remaining="${remaining#${n}d}"
+    fi
+    if [[ "$remaining" =~ ^([0-9]+)h ]]; then
+        n="${BASH_REMATCH[1]}"
+        total=$(( total + n * 3600 ))
+        remaining="${remaining#${n}h}"
+    fi
+    if [[ "$remaining" =~ ^([0-9]+)m ]]; then
+        n="${BASH_REMATCH[1]}"
+        total=$(( total + n * 60 ))
+        remaining="${remaining#${n}m}"
+    fi
+    if [[ "$remaining" =~ ^([0-9]+)s ]]; then
+        n="${BASH_REMATCH[1]}"
+        total=$(( total + n ))
+    fi
+
+    echo "$total"
+}
+
+do_status() {
+    local remaining
+    remaining=$(snooze_remaining)
+
+    if (( remaining > 0 )); then
+        local rem_str
+        rem_str=$(format_duration "$remaining")
+        printf '{"text": "☕ %s", "tooltip": "Hypridle snoozed, resumes in %s", "class": "snoozed"}\n' \
+            "$rem_str" "$rem_str"
+    elif is_hypridle_active; then
+        printf '{"text": "☕", "tooltip": "Hypridle active", "class": "idle"}\n'
+    else
+        printf '{"text": "☕", "tooltip": "Hypridle disabled", "class": "active"}\n'
+    fi
+}
+
+do_toggle() {
+    if is_hypridle_active; then
+        systemctl --user stop hypridle.service
+    else
+        cancel_snooze
+        systemctl --user start hypridle.service
+    fi
+    pkill -RTMIN+"$WAYBAR_SIGNAL" waybar
+}
+
+do_snooze() {
+    local options="5 min\n15 min\n30 min\n1 hour\n2 hours\nCustom..."
+    local chosen
+    chosen=$(printf '%b' "$options" | wofi -d -i -p "Snooze hypridle for..." -L 6)
+
+    [[ -z "$chosen" ]] && exit 0
+
+    local seconds
+    case "$chosen" in
+        "5 min")    seconds=300 ;;
+        "15 min")   seconds=900 ;;
+        "30 min")   seconds=1800 ;;
+        "1 hour")   seconds=3600 ;;
+        "2 hours")  seconds=7200 ;;
+        "Custom...")
+            local custom
+            custom=$(printf '' | wofi -d -i -p "Duration (e.g. 90m, 2h30m, 1d):" -L 1)
+            [[ -z "$custom" ]] && exit 0
+            seconds=$(parse_duration "$custom")
+            ;;
+        *) exit 0 ;;
+    esac
+
+    (( seconds <= 0 )) && exit 0
+
+    arm_snooze "$seconds"
+    pkill -RTMIN+"$WAYBAR_SIGNAL" waybar
+}
+
+case "$1" in
+    --status)   do_status ;;
+    --toggle)   do_toggle ;;
+    --snooze)   do_snooze ;;
+    *)          do_status ;;
+esac

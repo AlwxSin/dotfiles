@@ -6,7 +6,7 @@
 	helper = !/usr/bin/gh auth git-credential
 [user]
 	email = alwxsin@gmail.com
-	name = alwx
+	name = AlwxSin
 [core]
 	excludesfile = /home/alwx/.gitignore
     autocrlf = input
@@ -31,3 +31,6 @@
 
 [fetch]
 	prune = true
+
+[includeIf "gitdir:~/Projects/f/"]
+	path = ~/Projects/f/.gitconfig

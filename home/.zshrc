@@ -69,13 +69,6 @@ else
   export EDITOR='nvim'
 fi
 
-###### PROMT
-_omp_cache="${ZSH_CACHE_DIR}/omp_init.zsh"
-if [[ ! -f "$_omp_cache" || ~/.config/alwx_shell/omp-zen.toml -nt "$_omp_cache" ]]; then
-  oh-my-posh init zsh --config ~/.config/alwx_shell/omp-zen.toml >| "$_omp_cache"
-fi
-source "$_omp_cache"
-
 ###### PLUGINS
 ###### ZCOMET
 # Clone zcomet if necessary
@@ -103,6 +96,13 @@ zcomet load aloxaf/fzf-tab
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 
 zcomet compinit
+
+###### PROMT
+_omp_cache="${ZSH_CACHE_DIR}/omp_init.zsh"
+if [[ ! -f "$_omp_cache" || ~/.config/alwx_shell/omp-zen.toml -nt "$_omp_cache" ]]; then
+  oh-my-posh init zsh --config ~/.config/alwx_shell/omp-zen.toml >| "$_omp_cache"
+fi
+source "$_omp_cache"
 
 ###### LAZY LOAD
 kubectl() {

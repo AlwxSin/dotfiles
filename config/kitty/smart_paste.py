@@ -1,4 +1,4 @@
-import subprocess
+TEXT_TYPES = {"text/plain", "text/plain;charset=utf-8", "UTF8_STRING", "STRING", "TEXT"}
 
 
 def main(args):
@@ -7,8 +7,6 @@ def main(args):
 
 from kittens.tui.handler import result_handler
 
-TEXT_TYPES = {"text/plain", "text/plain;charset=utf-8", "UTF8_STRING", "STRING", "TEXT"}
-
 
 @result_handler(no_ui=True)
 def handle_result(args, answer, target_window_id, boss):
@@ -16,15 +14,11 @@ def handle_result(args, answer, target_window_id, boss):
     if w is None:
         return
 
-    r = subprocess.run(["wl-paste", "--list-types"], capture_output=True, timeout=2)
-    if r.returncode != 0:
-        return
-
-    mime_types = {m.strip() for m in r.stdout.decode("utf-8", errors="replace").splitlines()}
+    mime_types = set(boss.clipboard.get_available_mime_types_for_paste())
 
     if mime_types & TEXT_TYPES:
-        r = subprocess.run(["wl-paste", "--no-newline"], capture_output=True, timeout=2)
-        if r.returncode == 0 and r.stdout:
-            w.write_to_child(r.stdout.decode("utf-8", errors="replace"))
+        text = boss.clipboard.get_text()
+        if text:
+            w.paste_with_actions(text)
     elif any(m.startswith("image/") for m in mime_types):
         w.write_to_child("\x16")

@@ -23,20 +23,6 @@ hl.window_rule({
     no_focus = true,
 })
 
--- Always run steam apps at specific workspace
--- Doesn't work on native wayland fullscreen apps
-hl.window_rule({
-    name      = "steam-apps",
-    match     = { class = "^(steam_app_).*" },
-    workspace = "5 silent",
-})
-
--- Launch ALL fullscreen apps on workspace 5 (mostly games)
-hl.window_rule({
-    name      = "fullscreen-apps",
-    match     = { fullscreen = true },
-    workspace = "5",
-})
 
 -- No screenshare for sensitive apps
 hl.window_rule({

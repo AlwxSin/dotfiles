@@ -1,7 +1,14 @@
 alias cat='bat'
 alias caat='/usr/bin/cat'
-alias ls='exa'
-alias la='exa -la'
+
+alias ls='exa --icons'
+alias la='exa -lah --icons'
+# Tree view
+alias tree='eza --tree --icons'
+
+alias grep='rg --color=auto -i'
+alias diff='diff --color=auto'
+alias df='df -h'
 
 alias g='git'
 alias h='hstr'
